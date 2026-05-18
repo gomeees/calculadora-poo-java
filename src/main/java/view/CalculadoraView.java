@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
  */
 public class CalculadoraView extends JFrame implements ActionListener{
 
-    public final String[] ops = {"+", "-", "*", "/"};
+    public final String[] ops = {"+", "-", "*", "/", "%"};
     public CalculadoraController controller;
     JTextField display = new JTextField("0");
     JTextField displayOp = new JTextField("");
@@ -83,6 +83,7 @@ public class CalculadoraView extends JFrame implements ActionListener{
             button.setFocusPainted(false);
             //button.setBorder(BorderFactory.createLineBorder(cinzaEscuro));
             button.addActionListener(this);
+            button.setFocusable(false);
             if(item.equals("=")) {
                 button.setBackground(Color.RED);
                 button.setForeground(Color.WHITE);
@@ -121,6 +122,8 @@ public class CalculadoraView extends JFrame implements ActionListener{
                 case "+/-":
                     controller.mudarSinal();
                     break;
+                case "%":
+                    
             }
         }
     }
@@ -151,7 +154,7 @@ public class CalculadoraView extends JFrame implements ActionListener{
     
     public static void main(String[] args) {
         com.formdev.flatlaf.FlatLightLaf.setup();
-        UIManager.put("Button.cornerRadius", 12);
+        UIManager.put("Button.cornerRadius", 18);
         
         CalculadoraView view = new CalculadoraView();
         CalculadoraModel model = new CalculadoraModel();

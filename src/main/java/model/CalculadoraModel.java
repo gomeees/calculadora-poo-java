@@ -14,11 +14,11 @@ public class CalculadoraModel {
     private String displayAtual = "0";
     private String displayOperacao = "";
     private String operador = "";
-    private String ultimoDigito = "";
-    private String ultimoSinal = "";
+    public String ultimoDigito = "";
+    public String ultimoSinal = "";
     private String sinalMemoria = "";
     private int numMemoria;
-    private final String[] ops = {"+", "-", "*", "/"};
+    private final String[] ops = {"+", "-", "*", "/", "%"};
     private boolean esperandoIgual = false;
     private boolean ultimoDigitoIgual = false;
     private int num1 = 0;
@@ -41,7 +41,6 @@ public class CalculadoraModel {
         if(displayAtual.equals("0")) displayAtual = "";
         if(Arrays.asList(ops).contains(ultimoDigito)) displayAtual = "";
         if(ultimoDigitoIgual) {
-            System.out.println("entrou");
             displayAtual = "";
             displayOperacao = "";
         }
@@ -79,7 +78,6 @@ public class CalculadoraModel {
             switch(sinalMemoria) {
                 case "+":
                     displayAtual = Integer.toString(num1 + numMemoria);
-                    System.out.println(num1 + " " + numMemoria);
                     break;
                 case "-":
                     displayAtual = Integer.toString(num1 - numMemoria);
@@ -91,17 +89,21 @@ public class CalculadoraModel {
                     if(numMemoria == 0)displayAtual = "Operação inválida";
                     else displayAtual = Integer.toString(num1 / numMemoria);
                     break;
+                case "%":
+                    if(numMemoria == 0)displayAtual = "Operação inválida";
+                    else displayAtual = Integer.toString(num1 % numMemoria);
+                    break;
             }
             displayOperacao = num1 + " " + sinalMemoria + " " + numMemoria + " " + " =";
             esperandoIgual = false;
             ultimoDigito = op;
             ultimoDigitoIgual = true;
+            if(!displayAtual.equals("Operação inválida"))System.out.println(num1 + " " + sinalMemoria + " " + numMemoria + " " + " = " + displayAtual);
             return;
         }
         if(!op.equals("="))operador = op;
         if(!displayAtual.equals("Operação inválida")) {
             int num2 = Integer.parseInt(displayAtual);
-            System.out.println(operador);
             switch(operador) {
                 case "+":
                     displayAtual = Integer.toString(num1 + num2);
@@ -116,7 +118,12 @@ public class CalculadoraModel {
                     if(num2 == 0)displayAtual = "Operação inválida";
                     else displayAtual = Integer.toString(num1 / num2);
                     break;
+                case "%":
+                    if(num2 == 0)displayAtual = "Operação inválida";
+                    else displayAtual = Integer.toString(num1 % num2);
+                    break;
             }
+            if(!displayAtual.equals("Operação inválida"))System.out.println(num1 + " " + operador + " " + num2 + " " + " = " + displayAtual);
             if(op.equals("=") && !operador.isBlank()) {
                 displayOperacao = displayOperacao + " " + Integer.toString(num2) + " =";
                 numMemoria = num2;
