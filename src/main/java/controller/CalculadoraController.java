@@ -87,7 +87,7 @@ public class CalculadoraController {
     }
     
     public void condAddDigito(String digito) {
-        if(model.getUltimoDigito().equals("=")) {
+        if(model.getUltimoDigitoIgual()) {
             view.updateDisplay("");
             model.setDisplayAtual("");
             view.updateDisplayOperacao("");
@@ -97,7 +97,7 @@ public class CalculadoraController {
             view.updateDisplay("");
             model.setDisplayAtual("");
             model.addDigito(digito);
-        } else model.addDigito(digito);
+        }  else model.addDigito(digito);
     }
     
     public void acaoOperador(String op) {
@@ -107,9 +107,11 @@ public class CalculadoraController {
     
     public void mudarSinal() {
         String displayAtual = model.getDisplayAtual();
-        if(displayAtual.contains("-")) model.setDisplayAtual(displayAtual.substring(1));
-        else model.setDisplayAtual("-".concat(displayAtual));
-        view.updateDisplay(model.getDisplayAtual());
+        if(!displayAtual.equals("0")) {
+            if(displayAtual.contains("-")) model.setDisplayAtual(displayAtual.substring(1));
+            else model.setDisplayAtual("-".concat(displayAtual));
+            view.updateDisplay(model.getDisplayAtual());
+        }
     }
     
     public void teclaApertada(KeyEvent evt) {
@@ -177,7 +179,6 @@ public class CalculadoraController {
             case KeyEvent.VK_ENTER:
                 model.execOperacao("=");
                 view.updateDisplay(model.getDisplayAtual());
-                System.out.println(model.getDisplayOperacao() + " " + model.getDisplayAtual());
                 break;
             case KeyEvent.VK_C:
                 limparTudo();

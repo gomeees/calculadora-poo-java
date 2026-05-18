@@ -101,7 +101,8 @@ public class CalculadoraView extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent evt) {
         String digito = evt.getActionCommand();
-        if(isNumeric(digito) || digito.equals("=")) controller.cliqueBotao(digito);
+        if(display.getText().equals("Operação inválida")) controller.limparTudo();
+        else if(isNumeric(digito) || digito.equals("=")) controller.cliqueBotao(digito);
         else if(Arrays.asList(ops).contains(digito)) controller.cliqueBotaoOp(digito);
         else {
             switch(digito) {

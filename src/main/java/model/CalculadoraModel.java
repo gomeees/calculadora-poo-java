@@ -41,6 +41,7 @@ public class CalculadoraModel {
         if(displayAtual.equals("0")) displayAtual = "";
         if(Arrays.asList(ops).contains(ultimoDigito)) displayAtual = "";
         if(ultimoDigitoIgual) {
+            System.out.println("entrou");
             displayAtual = "";
             displayOperacao = "";
         }
@@ -56,8 +57,7 @@ public class CalculadoraModel {
     }
     
     public void addOperador(String op) {
-        if(esperandoIgual && isNumeric(ultimoDigito) && !ultimoDigitoIgual) {
-            System.out.println("entrou");
+        if(esperandoIgual && isNumeric(ultimoDigito)) {
             execOperacao(ultimoSinal);
             esperandoIgual = false;
         }
@@ -121,11 +121,14 @@ public class CalculadoraModel {
                 displayOperacao = displayOperacao + " " + Integer.toString(num2) + " =";
                 numMemoria = num2;
                 sinalMemoria = operador;
+                
             }
             else displayOperacao = displayAtual + " " + op;
-            //esperandoIgual = false;
+            esperandoIgual = false;
         }
-        if(op.equals("=")) ultimoDigitoIgual = true;
+        if(op.equals("=")) {
+            ultimoDigitoIgual = true;
+        }
         
     }
     
@@ -159,6 +162,10 @@ public class CalculadoraModel {
     
     public String getUltimoDigito() {
         return ultimoDigito;
+    }
+    
+    public boolean getUltimoDigitoIgual() {
+        return ultimoDigitoIgual;
     }
     
     public void setDisplayOperacao(String displayOperacao) {
