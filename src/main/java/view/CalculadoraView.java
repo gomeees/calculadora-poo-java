@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
  */
 public class CalculadoraView extends JFrame implements ActionListener{
 
-    public final String[] ops = {"+", "-", "*", "/", "%"};
+    public final String[] ops = {"+", "-", "*", "/", "%", "^"};
     public CalculadoraController controller;
     JTextField display = new JTextField("0");
     JTextField displayOp = new JTextField("");
@@ -30,7 +30,6 @@ public class CalculadoraView extends JFrame implements ActionListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         Color corBg = new Color(243, 243, 243);
-        Color cinzaEscuro = new Color(230, 230, 230);
         getContentPane().setBackground(corBg);
     
         setLayout(new GridBagLayout());
@@ -67,8 +66,8 @@ public class CalculadoraView extends JFrame implements ActionListener{
         panelBotoes.setBackground(corBg);
         
         String[] botoes = {
-        "%", "CE", "C", "<-",
-        "1/x", "x²", "√x", "/",
+        "%", "!", "C", "<-",
+        "1/x", "x\u02B8", "√x", "/",
         "7", "8", "9", "*",
         "4", "5", "6", "-",
         "1", "2", "3", "+",
@@ -102,6 +101,7 @@ public class CalculadoraView extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent evt) {
         String digito = evt.getActionCommand();
+        if(digito.equals("x\u02B8")) digito = "^";
         if(display.getText().equals("Operação inválida")) controller.limparTudo();
         else if(isNumeric(digito) || digito.equals("=")) controller.cliqueBotao(digito);
         else if(Arrays.asList(ops).contains(digito)) controller.cliqueBotaoOp(digito);
@@ -110,8 +110,8 @@ public class CalculadoraView extends JFrame implements ActionListener{
                 case "C":
                     controller.limparTudo();
                     break;
-                case "x²":
-                    controller.chamaSqr();
+                case "!":
+                    controller.chamaFat();
                     break;
                 case "√x":
                     controller.chamaSqrt();
@@ -121,9 +121,7 @@ public class CalculadoraView extends JFrame implements ActionListener{
                     break;
                 case "+/-":
                     controller.mudarSinal();
-                    break;
-                case "%":
-                    
+                    break; 
             }
         }
     }

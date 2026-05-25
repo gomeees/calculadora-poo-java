@@ -17,7 +17,7 @@ import view.CalculadoraView;
 public class CalculadoraController {
     private CalculadoraView view;
     private CalculadoraModel model;
-    private final String[] ops = {"+", "-", "*", "/", "%"};
+    private final String[] ops = {"+", "-", "*", "/", "%", "^"};
     
     public CalculadoraController(CalculadoraView view, CalculadoraModel model) {
         this.view = view;
@@ -60,18 +60,13 @@ public class CalculadoraController {
         view.updateDisplay(model.getDisplayAtual());
     }
     
-    public void chamaFuncPorcentagem() {
-        model.funcPoercentagem();
+    public void chamaFat() {
+        model.fat();
         view.updateDisplay(model.getDisplayAtual());
     }
     
     public void chamaSqrt() {
         model.sqrt();
-        view.updateDisplay(model.getDisplayAtual());
-    }
-    
-    public void chamaSqr() {
-        model.sqr();
         view.updateDisplay(model.getDisplayAtual());
     }
     

@@ -18,7 +18,7 @@ public class CalculadoraModel {
     public String ultimoSinal = "";
     private String sinalMemoria = "";
     private int numMemoria;
-    private final String[] ops = {"+", "-", "*", "/", "%"};
+    private final String[] ops = {"+", "-", "*", "/", "%", "^"};
     private boolean esperandoIgual = false;
     private boolean ultimoDigitoIgual = false;
     private int num1 = 0;
@@ -93,6 +93,16 @@ public class CalculadoraModel {
                     if(numMemoria == 0)displayAtual = "Operação inválida";
                     else displayAtual = Integer.toString(num1 % numMemoria);
                     break;
+                case "^":
+                    if(numMemoria == 0) displayAtual = "1";
+                    else {
+                        int aux = 1;
+                        for(int i = 0; i < numMemoria; i++) {
+                            aux *= num1;
+                        }
+                        displayAtual = Integer.toString(aux);
+                    }
+                    break;
             }
             displayOperacao = num1 + " " + sinalMemoria + " " + numMemoria + " " + " =";
             esperandoIgual = false;
@@ -115,12 +125,23 @@ public class CalculadoraModel {
                     displayAtual = Integer.toString(num1 * num2);
                     break;
                 case "/":
-                    if(num2 == 0)displayAtual = "Operação inválida";
+                    if(num2 == 0) displayAtual = "Operação inválida";
                     else displayAtual = Integer.toString(num1 / num2);
                     break;
                 case "%":
-                    if(num2 == 0)displayAtual = "Operação inválida";
+                    if(num2 == 0) displayAtual = "Operação inválida";
                     else displayAtual = Integer.toString(num1 % num2);
+                    break;
+                case "^":
+                    System.out.println("entrou");
+                    if(num2 == 0) displayAtual = "1";
+                    else {
+                        int aux = 1;
+                        for(int i = 0; i < num2; i++) {
+                            aux *= num1;
+                        }
+                        displayAtual = Integer.toString(aux);
+                    }
                     break;
             }
             if(!displayAtual.equals("Operação inválida"))System.out.println(num1 + " " + operador + " " + num2 + " " + " = " + displayAtual);
@@ -133,26 +154,22 @@ public class CalculadoraModel {
             else displayOperacao = displayAtual + " " + op;
             esperandoIgual = false;
         }
-        if(op.equals("=")) {
-            ultimoDigitoIgual = true;
-        }
-        
+        if(op.equals("=")) ultimoDigitoIgual = true;
     }
     
-    //continuar implementação
-    public void funcPoercentagem() {
-        int num2 = Integer.parseInt(displayAtual);
-        if(operador.equals("+") || operador.equals("-")) displayAtual = Integer.toString((num2/10) * num1);
+    public void fat() {
+        int num = Integer.parseInt(displayAtual);
+        int aux = num - 1;
+        do {
+            num *= aux;
+            aux--;
+        }while(aux > 0);
+        displayAtual = Integer.toString(num);
     }
     
     public void sqrt() {
         double num = Double.parseDouble(displayAtual);
         displayAtual = Integer.toString((int)(Math.sqrt(num)));
-    }
-    
-    public void sqr() {
-        int num = Integer.parseInt(displayAtual);
-        displayAtual = Integer.toString(num * num);
     }
     
     public String getDisplayAtual() {
