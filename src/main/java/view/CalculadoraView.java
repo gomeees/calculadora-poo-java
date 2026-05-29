@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.net.URI;
+import java.net.URL;
 
 /**
  *
@@ -29,6 +30,10 @@ public class CalculadoraView extends JFrame implements ActionListener{
         setTitle("Calculadora");
         setSize(320, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        URL pathIcone = this.getClass().getResource("/images/a.png");
+        Image icone = Toolkit.getDefaultToolkit().getImage(pathIcone);
+        this.setIconImage(icone);
         
         Color corBg = new Color(243, 243, 243);
         getContentPane().setBackground(corBg);
@@ -48,7 +53,7 @@ public class CalculadoraView extends JFrame implements ActionListener{
         displayOp.setEditable(false);
         grid.gridx = 0;
         grid.gridy = 0;
-        grid.weighty = 0.1;
+        grid.weighty = 0.05;
         add(displayOp, grid);
         
         display.setFont(new Font("Segoe UI", Font.BOLD, 32));
@@ -67,8 +72,8 @@ public class CalculadoraView extends JFrame implements ActionListener{
         panelBotoes.setBackground(corBg);
         
         String[] botoes = {
-        "%", ",", "C", "<-",
-        "1/x", "x\u02B8", "√x", "/",
+        "MS", "MR", "C", "<-",
+        "%", "x\u02B8", "√x", "/",
         "7", "8", "9", "*",
         "4", "5", "6", "-",
         "1", "2", "3", "+",
@@ -92,7 +97,7 @@ public class CalculadoraView extends JFrame implements ActionListener{
         }
         
         grid.gridy = 2;
-        grid.weighty = 0.65;
+        grid.weighty = 0.40;
         
         panelBotoes.setBorder(BorderFactory.createEmptyBorder(0,4,4,4));
         add(panelBotoes, grid);
@@ -122,6 +127,12 @@ public class CalculadoraView extends JFrame implements ActionListener{
                     break;
                 case "+/-":
                     controller.mudarSinal();
+                    break;
+                case "MS":
+                    controller.chamaAddNumM();
+                    break;
+                case "MR":
+                    controller.chamaColaNumM();
                     break;
                 default:
                     try{

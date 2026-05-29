@@ -71,6 +71,16 @@ public class CalculadoraController {
         view.updateDisplay(model.getDisplayAtual());
     }
     
+    public void chamaAddNumM() {
+        model.addNumM();
+    }
+    
+    public void chamaColaNumM() {
+        model.colaNumM();
+        view.updateDisplay(model.getDisplayAtual());
+        view.updateDisplayOperacao(model.getDisplayOperacao());
+    }
+    
     public void limparTudo() {
         view.updateDisplay("0");
         model.setDisplayAtual("0");

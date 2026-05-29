@@ -22,6 +22,7 @@ public class CalculadoraModel {
     private boolean esperandoIgual = false;
     private boolean ultimoDigitoIgual = false;
     private int num1 = 0;
+    private String numM = "0";
     
     private static boolean isNumeric(String str) {
         if (str == null || str.isEmpty()) {
@@ -176,6 +177,15 @@ public class CalculadoraModel {
     public void sqrt() {
         double num = Double.parseDouble(displayAtual);
         displayAtual = Integer.toString((int)(Math.sqrt(num)));
+    }
+    
+    public void addNumM() {
+        numM = displayAtual;
+    }
+    
+    public void colaNumM() {
+        if(!esperandoIgual) displayOperacao = "";
+        displayAtual = numM;
     }
     
     public String getDisplayAtual() {
