@@ -63,6 +63,7 @@ public class CalculadoraController {
     public void chamaFat() {
         model.fat();
         view.updateDisplay(model.getDisplayAtual());
+        view.updateDisplayOperacao(model.getDisplayOperacao());
     }
     
     public void chamaSqrt() {
@@ -85,7 +86,7 @@ public class CalculadoraController {
     }
     
     public void condAddDigito(String digito) {
-        if(model.getUltimoDigitoIgual()) {
+        if(model.getUltimoDigitoIgual() || model.getUltimoDigito().equals("!")) {
             view.updateDisplay("");
             model.setDisplayAtual("");
             view.updateDisplayOperacao("");

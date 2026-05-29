@@ -40,7 +40,7 @@ public class CalculadoraModel {
         if(displayAtual.length() > 3) return;
         if(displayAtual.equals("0")) displayAtual = "";
         if(Arrays.asList(ops).contains(ultimoDigito)) displayAtual = "";
-        if(ultimoDigitoIgual) {
+        if(ultimoDigitoIgual || ultimoDigito.equals("!")) {
             displayAtual = "";
             displayOperacao = "";
         }
@@ -94,7 +94,7 @@ public class CalculadoraModel {
                     else displayAtual = Integer.toString(num1 % numMemoria);
                     break;
                 case "^":
-                    if(numMemoria == 0) displayAtual = "1";
+                    if(num1 == 0) displayAtual = "1";
                     else {
                         int aux = 1;
                         for(int i = 0; i < numMemoria; i++) {
@@ -133,8 +133,7 @@ public class CalculadoraModel {
                     else displayAtual = Integer.toString(num1 % num2);
                     break;
                 case "^":
-                    System.out.println("entrou");
-                    if(num2 == 0) displayAtual = "1";
+                    if(num1 == 0) displayAtual = "1";
                     else {
                         int aux = 1;
                         for(int i = 0; i < num2; i++) {
@@ -159,12 +158,19 @@ public class CalculadoraModel {
     
     public void fat() {
         int num = Integer.parseInt(displayAtual);
-        int aux = num - 1;
-        do {
-            num *= aux;
-            aux--;
-        }while(aux > 0);
+        int numInicial = num;
+        if (num == 0 || num == 1) num = 1;
+        else {
+            int aux = num - 1;
+            do {
+                num *= aux;
+                aux--;
+            }while(aux > 0);
+        }
         displayAtual = Integer.toString(num);
+        displayOperacao = Integer.toString(numInicial) + " ! = ";
+        ultimoDigito = "!";
+        System.out.println(numInicial + "! = " + displayAtual);
     }
     
     public void sqrt() {

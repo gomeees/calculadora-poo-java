@@ -12,6 +12,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.net.URI;
 
 /**
  *
@@ -50,7 +51,7 @@ public class CalculadoraView extends JFrame implements ActionListener{
         grid.weighty = 0.1;
         add(displayOp, grid);
         
-        display.setFont(new Font("Segoe UI", Font.BOLD, 46));
+        display.setFont(new Font("Segoe UI", Font.BOLD, 32));
         display.setHorizontalAlignment(JTextField.RIGHT);
         display.setBackground(corBg);
         display.setBorder(BorderFactory.createEmptyBorder(-30, 5, 0, 5));
@@ -58,7 +59,7 @@ public class CalculadoraView extends JFrame implements ActionListener{
         display.setEditable(false);
         grid.gridx = 0;
         grid.gridy = 1;
-        grid.weighty = 0.25;
+        grid.weighty = 0.35;
         add(display, grid);
         
         JPanel panelBotoes = new JPanel();
@@ -66,12 +67,12 @@ public class CalculadoraView extends JFrame implements ActionListener{
         panelBotoes.setBackground(corBg);
         
         String[] botoes = {
-        "%", "!", "C", "<-",
+        "%", ",", "C", "<-",
         "1/x", "x\u02B8", "√x", "/",
         "7", "8", "9", "*",
         "4", "5", "6", "-",
         "1", "2", "3", "+",
-        "+/-", "0", ",", "="
+        "+/-", "0", "!", "="
         };
         
         for(String item: botoes) {
@@ -121,7 +122,15 @@ public class CalculadoraView extends JFrame implements ActionListener{
                     break;
                 case "+/-":
                     controller.mudarSinal();
-                    break; 
+                    break;
+                default:
+                    try{
+                        String url = "https://www.youtube.com/watch?v=NntP9GevGM8&t=1117s";
+                        Desktop.getDesktop().browse(new URI(url));
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         }
     }
